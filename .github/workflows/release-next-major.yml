@@ -45,7 +45,7 @@ jobs:
         user: UniversalConquistador
 
     - name: Publish UniCon.PenumbraMeta to NuGet
-      run: dotnet nuget push ./UniCon.PenumbraMeta/bin/Release/net10.0/*.nupkg --api-key ${{steps.login.outputs.NUGET_API_KEY}} --source https://nuget.org
+      run: dotnet nuget push ./UniCon.PenumbraMeta/bin/Release/*.nupkg --api-key ${{steps.login.outputs.NUGET_API_KEY}} --source https://nuget.org
 
     - name: Push versioning commit
       run: git push && git push --tags
@@ -59,6 +59,6 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: UniCon.PenumbraMeta
-        path: ./UniCon.PenumbraMeta/bin/Release/net10.0/*
+        path: ./UniCon.PenumbraMeta/bin/Release/*
         if-no-files-found: error
         retention-days: 7
