@@ -1,0 +1,38 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      Solution_Name: UniCon.PenumbraMeta
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v5
+
+    - name: Install .NET
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: 10.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore UniCon.PenumbraMeta
+
+    - name: Build with dotnet
+      run: dotnet build UniCon.PenumbraMeta --no-restore --configuration Release
+
+    - name: Store UniCon.PenumbraMeta artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: UniCon.PenumbraMeta
+        path: ./UniCon.PenumbraMeta/bin/Release/net10.0/*
+        if-no-files-found: error
+        retention-days: 7

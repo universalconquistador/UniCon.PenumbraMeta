@@ -1,0 +1,64 @@
+name: Release Major Version
+
+on:
+  workflow_dispatch
+permissions:
+  contents: write # For committing the new version number back to the repo
+  id-token: write # For NuGet Trusted Publishing
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      Solution_Name: UniCon.PenumbraMeta
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v5
+
+    - name: Install .NET
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: 10.0.x
+
+    - name: Install .NET Version CLI
+      run: dotnet tool install dotnet-version-cli
+
+    - name: Set Git commit author
+      run: git config user.name "Universal Conquistador (CI Job)" && git config user.email "universalconquistador@gmail.com"
+
+    - name: Bump major version and commit
+      run: 'dotnet version -f Common.targets major -m "CI: Bumps major version for release $newVer."'
+
+    - name: Restore dependencies
+      run: dotnet restore UniCon.PenumbraMeta
+
+    - name: Build with dotnet
+      run: dotnet build UniCon.PenumbraMeta --no-restore --configuration Release
+
+    - name: NuGet login (OIDC → temp API key)
+      uses: NuGet/login@v1
+      id: login
+      with:
+        user: UniversalConquistador
+
+    - name: Publish UniCon.PenumbraMeta to NuGet
+      run: dotnet nuget push ./UniCon.PenumbraMeta/bin/Release/net10.0/*.nupkg --api-key ${{steps.login.outputs.NUGET_API_KEY}} --source https://nuget.org
+
+    - name: Push versioning commit
+      run: git push && git push --tags
+
+    - name: Retrieve version
+      run: |
+        echo "TAG_NAME=$(cat Common.targets | grep -Po '(?<=Version>).*(?=</Version>)')" >> $GITHUB_OUTPUT
+      id: version
+
+    - name: Store UniCon.PenumbraMeta artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: UniCon.PenumbraMeta
+        path: ./UniCon.PenumbraMeta/bin/Release/net10.0/*
+        if-no-files-found: error
+        retention-days: 7
