@@ -1,6 +1,8 @@
 # UniCon.PenumbraMeta
 
-PenumbraMeta is a library for working with metadata for [Penumbra](https://github.com/xivdev/Penumbra) mods. To get started, install the [`UniCon.PenumbraMeta`]() package from NuGet and instantiate a `new PenumbraModMetaV4(...)` or call `PenumbraModMeta.FromStreamAsync(...)`.
+[![NuGet Version](https://img.shields.io/nuget/v/UniCon.PenumbraMeta)](https://www.nuget.org/packages/UniCon.PenumbraMeta/)
+
+PenumbraMeta is a library for working with metadata for [Penumbra](https://github.com/xivdev/Penumbra) mods. To get started, install the [`UniCon.PenumbraMeta`](https://www.nuget.org/packages/UniCon.PenumbraMeta/) package from NuGet and instantiate a `new PenumbraModMetaV4(...)` or call `PenumbraModMeta.FromStreamAsync(...)`.
 
 For more information about using the library, see [its README](UniCon.PenumbraMeta/README.md).
 
