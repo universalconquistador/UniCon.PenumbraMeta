@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../Common.targets" />
+
+  <PropertyGroup>
+    <!-- NuGet package properties -->
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>UniversalConquistador</Authors>
+    <Title>Penumbra Mod Metadata Library</Title>
+    <Description>Provides an object model for working with Penumbra mod metadata.</Description>
+    <PackageProjectUrl>https://github.com/universalconquistador/UniCon.PenumbraMeta</PackageProjectUrl>
+    <Copyright>Copyright (c) UniversalConquistador</Copyright>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/universalconquistador/UniCon.PenumbraMeta.git</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageTags>FFXIV;Dalamud;Penumbra</PackageTags>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <EmbedAllSources>True</EmbedAllSources>
+    <DebugType>Embedded</DebugType>
+    <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+</Project>
